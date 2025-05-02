@@ -6,9 +6,12 @@ Authors@R:
            comment = c(ORCID = "0000-0001-6529-4474"))
 	person("Derek Settler", derek.settler@nrcan-rncan.gc.ca, role = c("aut"))
 Description: Simple module where user provides NFI data path and gets VDYP ready data to create growth curves.
-
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
-
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Depends: 
+    R (>= 2.10)
+Imports:
+    data.table
+LazyData: true

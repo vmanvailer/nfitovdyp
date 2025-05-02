@@ -2,3 +2,5 @@
 ^\.Rproj\.user$
 ^development$
 ^tests$
+^data-raw$
+^inst/extdata$

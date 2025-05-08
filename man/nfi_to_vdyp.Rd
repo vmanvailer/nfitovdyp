@@ -7,7 +7,8 @@
 nfi_to_vdyp(
   nfi_folder,
   output_path = file.path(getwd(), "nfi_to_vdyp_data"),
-  remeasurement_number = NULL
+  remeasurement_number = NULL,
+  include_moved_plots = TRUE
 )
 }
 \arguments{
@@ -15,7 +16,9 @@ nfi_to_vdyp(
 
 \item{output_path}{Path to folder where VDYP input CSVs will be written. Default is current working directory + "nfi_to_vdyp_data".}
 
-\item{remeasurement_number}{Optional measurement number to filter the data.}
+\item{remeasurement_number}{(Optional) measurement number to filter the data.}
+
+\item{include_moved_plots}{(Optional) If \code{TRUE}, plots that changed location (i.e. loc_id > 0) are included in the calculations. They can still be identified by the FEATURE_ID e.g. ID1100891\bold{L1}M0}
 }
 \value{
 No return value. Writes two CSV files to disk.
@@ -36,6 +39,8 @@ Key handling rules include:
 \item \strong{UTM conversions:} LATITUDE and LONGITUDE are computed from UTM coordinates.
 \item \strong{BEC zones:} BEC_ZONE_CODE is assigned using a GIS intersect between NFI plot coordinates and BEC zone polygons.
 \item \strong{Species composition:} For species codes and percentages, the function harmonizes small and large tree datasets, recalculates basal area per hectare for dbh >= 7.5cm (and dbh >= 12.5cm), computes relative percentages, and ranks species dominance.
+
+Important: Recalculation of basal area is done separately for large tree and small trees because large trees are measure on the large tree plot which is 11.28m in diameter (or 0.04 ha), while small trees are measured on the small tree plot which is half the diameter (5.64 m) and a quarter of the area (0.01 ha)
 \item \strong{Height and volume metrics:} Metrics like LOREY_HEIGHT_75, BASAL_AREA_125, and WS_VOL_PER_HA_75/125 are computed using filtered live tree data.
 \item \strong{Post-processing or fillers:} Some fields are populated with placeholders (e.g., PLOT_NUMBER or FEATURE_ID) for downstream processing or tracing.
 }

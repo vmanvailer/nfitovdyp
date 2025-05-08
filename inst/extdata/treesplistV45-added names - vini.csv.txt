@@ -1,0 +1,1 @@
+This file is made avaialble from NFI but had issues with exotic/native column and was missing some species that are found on nfi data. This table was manually corrected by Vini.

@@ -1,0 +1,44 @@
+---
+title: "Using nfitovdyp"
+author: "Vinicius Manvailer"
+date: "2025-05-08"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using nfitovdyp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(nfitovdyp)
+```
+## Introduction
+The nfitovdyp package converts National Forestry Inventory data to input format
+required by VDYP (Variable Density Yield Projection).
+
+This vignette shows an example workflow.
+
+
+**Note:** Example code below requires user-provided NFI data. Access https://nfi.nfis.org/en/datarequest to request access.
+
+### Example usage
+```{r, eval = FALSE}
+output_dir <- tempdir()
+
+nfi_to_vdyp(
+  nfi_folder = "path/to/your/nfi_data",
+  output_path = output_dir
+)
+
+list.files(output_dir)
+```
+### Output files
+Two CSV files will be created:
+
+  INPUT_POLY.csv: Polygon-level inputs
+
+  INPUT_LAYER.csv: Layer-level inputs

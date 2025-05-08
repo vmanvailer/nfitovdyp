@@ -1,5 +1,5 @@
 prepare_input_layer <- function(mapping, file_list, site_info, remeasurement_number = NULL) {
-  # Load necessary tree data
+  # --- Merge small and large tree data ----------------------------------------
   ltp_tree_path <- grep("all_gp_ltp_tree.csv", file_list, value = TRUE)
   stp_tree_path <- grep("all_gp_stp_tree.csv", file_list, value = TRUE)
 
@@ -36,17 +36,21 @@ prepare_input_layer <- function(mapping, file_list, site_info, remeasurement_num
   ltp[, tree_class := "large"]
 
   tree_dt <- rbindlist(list(stp, ltp), use.names = TRUE, fill = TRUE)
+  tree_dt <- merge(tree_dt, map_species, by.x = c("tree_genus", "tree_species"), by.y = c("nfi_tree_genus", "nfi_tree_species"))
+  tree_dt[,`:=` (tree_genus = NULL,
+                 tree_species = NULL)]
+
 
   # Calculate basal area per tree (m²)
   tree_dt[, basal_area := pi * (dbh^2) / 40000]
 
   # Calculate basal area per ha per species
-  ba_species <- tree_dt[, .(sum_ba = sum(basal_area)),
-                        by = .(nfi_plot, loc_id, meas_num, meas_date, tree_genus, tree_species, meas_plot_size)]
+  ba_species <- tree_dt[, .(sum_ba = sum(basal_area, na.rm = TRUE)),
+                        by = .(nfi_plot, loc_id, meas_num, meas_date, SpcsCode, meas_plot_size)]
   ba_species[, ba_per_ha := sum_ba / meas_plot_size]
 
   # Calculate percent composition
-  ba_species[, total_ba := sum(ba_per_ha), by = .(nfi_plot, loc_id, meas_num, meas_date)]
+  ba_species[, total_ba := sum(ba_per_ha, na.rm = TRUE), by = .(nfi_plot, loc_id, meas_num, meas_date)]
   ba_species[, pct_ba := (ba_per_ha / total_ba) * 100]
 
   # Rank species
@@ -61,6 +65,7 @@ prepare_input_layer <- function(mapping, file_list, site_info, remeasurement_num
 
   result_dt <- unique(tree_dt[, .(nfi_plot, loc_id, meas_num)])
 
+  # for (i in seq_len(nrow(mapping))) {
   for (i in seq_len(nrow(mapping))) {
     row <- mapping[i, ]
     vdyp_var <- row$`VDYP Variable`
@@ -70,13 +75,16 @@ prepare_input_layer <- function(mapping, file_list, site_info, remeasurement_num
     if (vdyp_var == "EST_SITE_INDEX_SPECIES_CD") {
       # Keep all original species columns (will handle later if needed)
       tree_sp <- ltp_h[,.(nfi_plot, loc_id, meas_num, site_index_genus, site_index_species)]
+      tree_sp <- merge(tree_sp, nfitovdyp::map_species, by.x = c("site_index_genus", "site_index_species"), by.y = c("nfi_tree_genus", "nfi_tree_species"))
+      tree_sp[,`:=` (site_index_genus = NULL,
+                     site_index_species = NULL)]
       result_dt <- merge(result_dt, tree_sp, by = c("nfi_plot", "loc_id", "meas_num"), all.x = TRUE)
-      next
+      setnames(result_dt, "SpcsCode", vdyp_var)
 
     } else if (grepl("SPECIES_CD_\\d", vdyp_var)) {
       rank_num <- as.integer(gsub("\\D", "", vdyp_var))
       species_cd <- ba_species[rank == rank_num,
-                               .(nfi_plot, loc_id, meas_num, value = paste0(tree_genus, tree_species))]
+                               .(nfi_plot, loc_id, meas_num, value = paste0(SpcsCode))]
       result_dt <- merge(result_dt, species_cd, by = c("nfi_plot", "loc_id", "meas_num"), all.x = TRUE)
       setnames(result_dt, "value", vdyp_var)
 

@@ -1,0 +1,33 @@
+SpcsCode,SP0 Spcs,Coast SINDEX,Int SINDEX,Coast Curve,Int Curve,Coast CC,Int CC,Full name,nfi_tree_genus,nfi_tree_species,fuzzy_match,match_score,adjusted
+AC,AC,Acb,Acb,97,97,61,61,poplar,POPU,BAL,balsam poplar,90,
+AT,AT,At,At,92,92,52,52,trembling aspen,POPU,TRE,trembling aspen,100,
+B,B,Ba,Bl,102,93,57,42,true fir,ABIE,SPP,amabilis fir,86,TRUE
+BA,B,Ba,Ba,102,102,57,57,amabilis/pacific silver fir,ABIE,AMA,amabilis fir,86,
+BG,B,Ba,Ba,102,102,57,42,grand fir,ABIE,GRA,grand fir,100,
+BL,B,Bl,Bl,93,93,42,42,alpine fir,ABIE,BIF,rocky mountain alpine fir,90,
+CW,C,Cwc,Cwi,101,77,60,51,western red cedar,THUJ,PLI,western redcedar,97,
+DR,D,Dr,Dr,13,13,72,72,red alder,ALNU,RUB,red alder,100,
+E,E,At,At,92,92,61,61,birch,BETU,SPP,unidentified birch,90,TRUE
+EA,E,At,At,92,92,61,61,common paper birch,BETU,PAP,white birch,86,TRUE
+EP,E,At,At,92,92,61,61,silver paper birch,BETU,PEN,European white birch,86,TRUE
+FD,F,Fdc,Fdi,100,96,61,48,douglas fir,PSEU,MEN,douglas-fir,100,
+H,H,Hwc,Hwi,99,37,61,51,hemlock,TSUG,CAN,eastern hemlock,90,
+HM,H,Hm,Hm,95,95,61,51,mountain hemlock,TSUG,MER,mountain hemlock,100,
+HW,H,Hwc,Hwi,99,37,61,51,western hemlock,TSUG,HET,western hemlock,100,
+L,L,Lw,Lw,90,90,54,54,larch,LARI,SPP,unidentified larch,90,TRUE
+LA,L,Lw,Lw,90,90,54,54,alpine larch,LARI,LYA,subalpine larch,89,
+LT,L,Lw,Lw,90,90,54,54,tamarack,LARI,LAR,tamarack,100,
+LW,L,Lw,Lw,90,90,54,54,western larch,LARI,OCC,western larch,100,
+MB,MB,Dr,Dr,13,13,71,71,broadleaf maple,ACER,MAC,bigleaf maple,86,TRUE
+PA,PA,Pli,Pli,45,45,50,50,whitebark pine,PINU,ALB,whitebark pine,100,
+PF,PA,Pli,Pli,45,45,50,50,limber pine,PINU,FLE,limber pine,100,
+PJ,PL,Pli,Pli,45,45,50,50,jack pine,PINU,BAN,jack pine,100,
+PL,PL,Pli,Pli,45,45,50,50,lodgepole pine,PINU,CON,lodgepole pine,100,
+PW,PW,Pw,Pw,98,98,55,55,western white pine,PINU,MON,western white pine,100,
+PY,PY,Py,Py,107,107,30,30,yellow pine,PINU,PON,Ponderosa pine,86,TRUE
+S,S,Ss,Sw,112,112,50,46,spruce,PICE,SPP,unidentified spruce,90,TRUE
+SB,S,Sb,Sb,91,91,46,46,black spruce,PICE,MAR,black spruce,100,
+SE,S,Se,Se,105,105,50,46,engelmann spruce,PICE,ENG,engelmann spruce,100,
+SS,S,Ss,Ss,59,59,50,50,sitka spruce,PICE,SIT,sitka spruce,100,
+SW,S,Sw,Sw,112,112,46,46,white spruce,PICE,GLA,white spruce,100,
+YC,Y,Cwc,Cwi,101,77,60,51,yellow cedar,CHAM,NOO,yellow-cedar,100,

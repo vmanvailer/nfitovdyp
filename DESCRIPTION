@@ -1,10 +1,11 @@
 Package: nfitovdyp
 Title: Transforms NFI data to VDYP input data (One Line, Title Case)
-Version: 0.0.0.9000
+Version: 1.0.0.0000
 Authors@R: 
-    person("Vinicius", "Manvailer", , "vinicius.manvailergoncalves@nrcan-rncan.gc.ca", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0001-6529-4474"))
-	person("Derek Settler", derek.settler@nrcan-rncan.gc.ca, role = c("aut"))
+    c(
+	person("Vinicius", "Manvailer", email = "vinicius.manvailergoncalves@nrcan-rncan.gc.ca", 
+           role = c("cre", "aut"), comment = c(ORCID = "0000-0001-6529-4474")),
+    person("Derek", "Settler", email = "derek.settler@nrcan-rncan.gc.ca", role = "aut"))
 Description: Simple module where user provides NFI data path and gets VDYP ready data to create growth curves.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
 Encoding: UTF-8
@@ -15,3 +16,9 @@ Depends:
 Imports:
     data.table
 LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3

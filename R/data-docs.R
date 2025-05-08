@@ -42,3 +42,20 @@
 #'
 #' @source Computed using \code{bcdata::bcdc_get_data()} and saved with \code{precompute_bec_zone()}.
 "bec_zone_table"
+
+#' Mapping table of NFI species codes to genus and species codes
+#'
+#' This dataset provides the mapping between VDYP species codes (\code{SpcsCode})
+#' and their corresponding NFI genus and species codes (\code{nfi_tree_genus}, \code{nfi_tree_species}),
+#' based on a fuzzy-matched join with the BC species list that includes manual a few adjustements.
+#'
+#' @format A data.table with columns:
+#' \describe{
+#'   \item{Spcs Code}{NFI species code}
+#'   \item{nfi_tree_genus}{Genus code mapped from the BC species list}
+#'   \item{nfi_tree_species}{Species code mapped from the BC species list}
+#' }
+#'
+#' @source Created by merging \code{nfi_to_vdyp_species_mapping.csv} with
+#' \code{treesplistV45-added names - vini.csv} using fuzzy matching on common names.
+"map_species"

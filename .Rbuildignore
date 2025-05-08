@@ -4,3 +4,5 @@
 ^tests$
 ^data-raw$
 ^inst/extdata$
+^doc$
+^Meta$

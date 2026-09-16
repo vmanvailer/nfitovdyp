@@ -1,24 +1,28 @@
 Package: nfitovdyp
-Title: Transforms NFI data to VDYP input data (One Line, Title Case)
+Title: Transform NFI Data into VDYP7 Input Data
 Version: 1.0.0.0000
 Authors@R: 
     c(
 	person("Vinicius", "Manvailer", email = "vinicius.manvailergoncalves@nrcan-rncan.gc.ca", 
            role = c("cre", "aut"), comment = c(ORCID = "0000-0001-6529-4474")),
-    person("Derek", "Settler", email = "derek.settler@nrcan-rncan.gc.ca", role = "aut"))
+    person("Derek", "Sattler", email = "derek.sattler@nrcan-rncan.gc.ca", role = "aut"),
+    person("His Majesty the King in Right of Canada, as represented by the Minister of Natural Resources",
+           role = "cph"))
 Description: Simple module where user provides NFI data path and gets VDYP ready data to create growth curves.
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a license
+License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
 Imports:
-    data.table
+    data.table,
+    sf
 LazyData: true
 Suggests: 
+    bcdata,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

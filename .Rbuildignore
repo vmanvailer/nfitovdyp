@@ -6,3 +6,4 @@
 ^inst/extdata$
 ^doc$
 ^Meta$
+^LICENSE\.md$

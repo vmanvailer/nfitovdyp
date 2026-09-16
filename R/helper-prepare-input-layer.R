@@ -36,12 +36,12 @@ prepare_input_layer <- function(mapping, file_list, site_info, remeasurement_num
   ltp[, tree_class := "large"]
 
   tree_dt <- rbindlist(list(stp, ltp), use.names = TRUE, fill = TRUE)
-  tree_dt <- merge(tree_dt, map_species, by.x = c("tree_genus", "tree_species"), by.y = c("nfi_tree_genus", "nfi_tree_species"))
+  tree_dt <- merge(tree_dt, nfitovdyp::map_species, by.x = c("tree_genus", "tree_species"), by.y = c("nfi_tree_genus", "nfi_tree_species"))
   tree_dt[,`:=` (tree_genus = NULL,
                  tree_species = NULL)]
 
 
-  # Calculate basal area per tree (m²)
+  # Calculate basal area per tree (m)
   tree_dt[, basal_area := pi * (dbh^2) / 40000]
 
   # Calculate basal area per ha per species

@@ -12,15 +12,17 @@ Description: Simple module where user provides NFI data path and gets VDYP ready
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Depends: 
     R (>= 2.10)
 Imports:
-    data.table
+    data.table,
+    sf
 LazyData: true
 Suggests: 
+    bcdata,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

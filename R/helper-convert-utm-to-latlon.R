@@ -12,9 +12,9 @@ convert_utm_to_latlon <- function(site_info) {
 
   utm_to_longlat <- function(easting, northing, zone) {
     points <- data.frame(x = easting, y = northing)
-    sp <- st_as_sf(points, coords = c("x", "y"), crs = paste0("+proj=utm +zone=", zone, " +datum=WGS84"))
-    longlat <- st_transform(sp, crs = "+proj=longlat +datum=WGS84")
-    coords <- st_coordinates(longlat)
+    sp <- sf::st_as_sf(points, coords = c("x", "y"), crs = paste0("+proj=utm +zone=", zone, " +datum=WGS84"))
+    longlat <- sf::st_transform(sp, crs = "+proj=longlat +datum=WGS84")
+    coords <- sf::st_coordinates(longlat)
     data.frame(lat = coords[, "Y"], lon = coords[, "X"])
   }
 

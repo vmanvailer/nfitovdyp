@@ -1,13 +1,12 @@
 #' Convert NFI data to VDYP input format
 #'
 #' This function reads National Forest Inventory (NFI) ground plot data,
-#' transforms it into the input format required by \link[https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory/growth-and-yield-modelling/variable-density-yield-projection-vdyp/publications-and-support]{Variable Density Yield Projection (VDYP 7)},
+#' transforms it into the input format required by [Variable Density Yield Projection (VDYP 7)](https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory/growth-and-yield-modelling/variable-density-yield-projection-vdyp/publications-and-support),
 #' and writes INPUT_POLY.csv and INPUT_LAYER.csv to an output directory.
 #'
 #' @param nfi_folder Path to folder containing NFI CSV files.
 #' @param output_path Path to folder where VDYP input CSVs will be written. Default is current working directory + "nfi_to_vdyp_data".
 #' @param remeasurement_number (Optional) measurement number to filter the data.
-#' @param include_moved_plots (Optional) If `TRUE`, plots that changed location (i.e. loc_id > 0) are included in the calculations. They can still be identified by the FEATURE_ID e.g. ID1100891\bold{L1}M0
 #'
 #' @return No return value. Writes two CSV files to disk.
 #' @export
@@ -32,21 +31,19 @@
 #' the \code{map_polygon} and \code{map_layer} datasets included in the package.
 #' @import data.table
 #' @examples
-#' nfi_to_vdyp("development/nfi_data")
+#' \dontrun{
+#' nfi_to_vdyp("path/to/nfi_data")
+#' }
 nfi_to_vdyp <- function(nfi_folder,
                         output_path = file.path(getwd(), "nfi_to_vdyp_data"),
                         remeasurement_number = NULL) {
 
-  library(data.table)
-  library(sf)
-  library(bcdata)
-
-  # 3️⃣ Index NFI files
+  # 3 Index NFI files
   file_list <- list.files(nfi_folder, "all_gp_.*\\.csv", recursive = TRUE, full.names = TRUE)
   # remove the duplicated all_gp_site_info.csv file paths. It is found on every folder.
   file_list <- file_list[!grepl(pattern = "(?<!nfi_data)/all_gp_site_info.csv", x = file_list, perl = TRUE)]
 
-  # 4️⃣ Read stand table + convert UTM to lat/lon
+  # 4 Read stand table + convert UTM to lat/lon
   site_info_path <- grep(x = file_list, pattern =  file.path(nfi_folder, "all_gp_site_info.csv"), value = TRUE)
   site_info <- fread(site_info_path)[province == "BC",]
   site_info <- convert_utm_to_latlon(site_info)
@@ -57,24 +54,24 @@ nfi_to_vdyp <- function(nfi_folder,
     stop(paste0("There is no data for remeasurement number(s) ", paste(remeasurement_number, collpase = ", "), "\n\n"))
   }
 
-  # 6️⃣ Prepare INPUT_POLY
+  # 6 Prepare INPUT_POLY
   message("Preparing INPUT_POLY...")
   input_poly <- prepare_input_poly(mapping = nfitovdyp::map_poly,
                                    file_list = file_list,
                                    site_info = site_info,
-                                   bec_zone_table = bec_zone_table)
+                                   bec_zone_table = nfitovdyp::bec_zone_table)
 
-  # 7️⃣ Prepare INPUT_LAYER
+  # 7 Prepare INPUT_LAYER
   message("Preparing INPUT_LAYER...")
   input_layer <- prepare_input_layer(mapping = nfitovdyp::map_layer,
                                      file_list = file_list,
                                      site_info = site_info,
                                      remeasurement_number = remeasurement_number) |> suppressWarnings()
 
-  # 1️⃣ Setup output folder
+  # 1 Setup output folder
   if (!dir.exists(output_path)) dir.create(output_path, recursive = TRUE)
 
-  # 8️⃣ Write CSV outputs
+  # 8 Write CSV outputs
   input_poly[,`:=` (
     nfi_plot = NULL,
     loc_id = NULL,
@@ -91,7 +88,7 @@ nfi_to_vdyp <- function(nfi_folder,
   fwrite(input_poly, file.path(output_path, "INPUT_POLY.csv"))
   fwrite(input_layer, file.path(output_path, "INPUT_LAYER.csv"))
 
-  message("✅ VDYP input files saved to: ", output_path)
+  message(" VDYP input files saved to: ", output_path)
 
   inputs <- list(input_poly = input_poly,
                  input_layer = input_layer)

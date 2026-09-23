@@ -7,8 +7,7 @@
 nfi_to_vdyp(
   nfi_folder,
   output_path = file.path(getwd(), "nfi_to_vdyp_data"),
-  remeasurement_number = NULL,
-  include_moved_plots = TRUE
+  remeasurement_number = NULL
 )
 }
 \arguments{
@@ -17,15 +16,13 @@ nfi_to_vdyp(
 \item{output_path}{Path to folder where VDYP input CSVs will be written. Default is current working directory + "nfi_to_vdyp_data".}
 
 \item{remeasurement_number}{(Optional) measurement number to filter the data.}
-
-\item{include_moved_plots}{(Optional) If \code{TRUE}, plots that changed location (i.e. loc_id > 0) are included in the calculations. They can still be identified by the FEATURE_ID e.g. ID1100891\bold{L1}M0}
 }
 \value{
 No return value. Writes two CSV files to disk.
 }
 \description{
 This function reads National Forest Inventory (NFI) ground plot data,
-transforms it into the input format required by \link[https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory/growth-and-yield-modelling/variable-density-yield-projection-vdyp/publications-and-support]{Variable Density Yield Projection (VDYP 7)},
+transforms it into the input format required by \href{https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/forest-inventory/growth-and-yield-modelling/variable-density-yield-projection-vdyp/publications-and-support}{Variable Density Yield Projection (VDYP 7)},
 and writes INPUT_POLY.csv and INPUT_LAYER.csv to an output directory.
 }
 \details{
@@ -49,5 +46,7 @@ The full description of each mapping rule is stored in the \code{Description} co
 the \code{map_polygon} and \code{map_layer} datasets included in the package.
 }
 \examples{
-nfi_to_vdyp("development/nfi_data")
+\dontrun{
+nfi_to_vdyp("path/to/nfi_data")
+}
 }
